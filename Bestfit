@@ -1,0 +1,70 @@
+#include<stdio.h>
+void main()
+ { 
+  struct Memory
+   {
+    int size,alloc;
+   }M[10];
+  struct Process
+   {
+    int size,flag;
+   }P[10];
+   int n,p;
+  
+  printf("Enter the processes\n");
+  scanf("%d",&p);
+  printf("Enter number of memory bits\n");
+  scanf("%d",&n);
+  for(int i=0;i<n;i++)
+   {
+    printf("Enter size of memory\n");
+    scanf("%d",&M[i].size);
+    M[i].alloc=0;
+   }
+   for(int i=0;i<n;i++)
+    {
+     for(int j=i+1;j<n;j++)
+     {
+      if(M[i].size>=M[j].size)
+      {
+       int temp=M[i].size;
+       M[i].size=M[j].size;
+       M[j].size=temp;
+      }
+     }
+    }
+  for(int i=0;i<p;i++)
+   {
+    printf("Enter required memory for process\n");
+    scanf("%d",&P[i].size);
+    P[i].flag=0;
+   }
+  for(int i=0;i<p;i++)
+   {
+  for(int j=0;j<n;j++)
+  {
+   if(P[i].size<=M[i].size)
+    {
+     if(M[j].alloc==1)
+      {
+       continue;
+       }
+      else
+       {
+        M[i].alloc=1;
+        P[i].flag=1;
+        printf("%d process is allocated at %dth memory\n",P[i].size,M[j].size);
+        break;
+        }
+       }
+      }
+     }
+     for(int i=0;i<n;i++)
+      {
+       if(P[i].flag==0)
+        {
+         printf("No space for process %d\n",i);
+        }
+       }
+      }
+    
